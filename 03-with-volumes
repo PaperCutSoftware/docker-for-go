@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Use a pre build image  https://hub.docker.com/repository/docker/dockerfornovices/sqlite
+
+docker volume rm db-demo
+
+clear
+
+set -v
+
+docker container run --rm -it --mount type=volume,source=db-demo,target=/data \
+    dockerfornovices/sqlite:0.1 $'create table t1  (c1 varchar(20));'
+
+docker container run --rm -it --mount type=volume,source=db-demo,target=/data \
+    dockerfornovices/sqlite:0.1 $'insert into t1 values (\'Hello Melbourne Go Meetup\');'
+
+docker container run --rm -it --mount type=volume,source=db-demo,target=/data \
+    dockerfornovices/sqlite:0.1 $'select * from t1;'
+
+# We now have a volume that exists beyond the container -- use the inspect command
+read x
+
+docker volume inspect db-demo

@@ -1,0 +1,37 @@
+#!/bin/dash
+VERSION=${1:-1.14}
+
+docker container rm -f myAPIserver
+
+docker image rm -f dockerfornovices/api-server:$VERSION > /dev/null
+clear
+echo \$VERSION is  $VERSION
+set -v
+
+docker container run --publish 8089:8000 --rm --detach --name myAPIserver dockerfornovices/api-server:$VERSION
+
+sleep 5
+
+docker container ls -a
+
+read x
+
+curl http://0.0.0.0:8089/people
+
+read x
+
+docker container stop myAPIserver
+
+docker container run  --rm --detach --name myAPIserver dockerfornovices/api-server:$VERSION
+
+sleep 2
+
+docker container ls -a
+
+curl http://0.0.0.0:8089/people
+
+curl http://0.0.0.0:8000/people
+
+read x
+
+docker container stop myAPIserver

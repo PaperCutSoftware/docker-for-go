@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+docker container rm -f $(docker container ls -aq)
+
+docker volume rm go-deps-my-project
+rm $ROOT/{04-bind-mount,05-bind-mount-and-data-volume-for-dependencies,06-building-images,07-pass-env-values}/{go.mod,go.sum,main}
+
+docker image rm hello-world
+
+echo y | docker image prune
+
+docker volume rm db-demo
+docker image rm alpine:3.11
+
+docker image pull debian:buster-slim
+docker image pull golang:1.14-buster
+docker image pull golang:1.13-buster
+docker image pull dockerfornovices/api-server:1.14
+docker image pull dockerfornovices/sqlite:0.1

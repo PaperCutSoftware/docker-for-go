@@ -1,0 +1,5 @@
+#!/bin/bash -v
+
+docker container run --rm -it \
+        --workdir="/development" \
+        --mount type=bind,source=$PWD,target=/development --name myGoDev golang:1.14

@@ -1,0 +1,83 @@
+#!/bin/dash
+
+docker container rm -f myAlpine
+docker image rm -f alpine:3.11
+
+clear
+set -v
+
+# We need to pull an image into our local catch.
+
+docker image pull alpine:3.11
+
+# Run the image in a container with
+
+docker container run -it --rm --name myAlpine alpine:3.11
+
+# we can override the default command (the default in Alpine is /bin/sh)
+
+read x
+
+docker container run -it --rm --name myAlpine alpine:3.11 ping -c 5 sun.com
+
+# when finished the container closes down -- note --rm option
+
+read x
+
+# Container status
+
+# Run a container in daemon mode,
+
+docker container run -d --name myAlpine alpine /bin/sh -c 'trap exit TERM; while echo $(( i += 1));do sleep 5;done'
+
+# container status: use the docker `container ls` and `docker container inspect ...` commands
+
+docker container ls
+
+docker container inspect --format '{{.State.Status}}' myAlpine
+
+read x
+
+# now stop the container
+
+docker container stop myAlpine
+
+docker container ls
+
+read x
+
+# So has the container gone? Let's look deeper
+
+docker container inspect --format '{{.State.Status}}' myAlpine
+
+read x
+
+# use docker container ls -a instead
+
+docker container ls -a
+
+read x
+
+# Use the command `docker container rm ....`
+
+docker container rm myAlpine
+
+docker container inspect --format '{{.State.Status}}' myAlpine
+
+read x
+
+# let's look at container logs
+
+docker container run -d --name myAlpine alpine /bin/sh -c 'trap exit TERM; while echo $(( i += 1));do sleep 5;done'
+
+read x
+
+# let's look at the logs
+
+docker container logs myAlpine
+
+read x
+
+# let's tail the logs
+
+docker container logs --follow myAlpine

@@ -1,0 +1,10 @@
+#!/bin/bash -v
+
+PORT=${1:-8000}
+
+docker container run --rm -it \
+    --mount type=bind,source=$PWD,target=/development \
+    --mount type=volume,source=go-deps-my-project,target=/go \
+    --publish 8089:$PORT \
+    --env API_SERVER_PORT=$PORT \
+    --name myGoDev go-with-delve:1.14

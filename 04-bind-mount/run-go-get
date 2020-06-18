@@ -1,0 +1,3 @@
+#!/bin/bash -v
+
+go get -u ...

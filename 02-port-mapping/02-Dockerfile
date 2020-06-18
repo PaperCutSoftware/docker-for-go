@@ -1,0 +1,20 @@
+ARG VERSION
+FROM golang:1.${VERSION}-buster as builder
+
+LABEL autodelete="true"
+
+WORKDIR /development
+
+COPY main.go .
+
+RUN go mod init github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go && \
+    go build main.go
+
+#Use same base image golang builder image dockerfile
+FROM debian:buster-slim as runner
+
+COPY --from=builder /development/main .
+
+CMD ["./main"]
+
+EXPOSE 8000

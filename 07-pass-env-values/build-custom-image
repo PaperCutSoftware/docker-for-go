@@ -1,0 +1,10 @@
+#/bin/bash
+
+docker image rm -f go-wth-delve:1.14
+
+clear
+set -v
+
+# Add delve debugger to standard go image
+
+docker image build -f Dockerfile -t go-with-delve:1.14 .
