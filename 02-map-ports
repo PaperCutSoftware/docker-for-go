@@ -22,9 +22,7 @@ set -v
 
 # Test with `curl -v http://0.0.0.0:9089/people`
 
-#Get Health check status with `docker container inspect --format '{{.State.Health.Status}}' <ID>"`,
-# or `docker container inspect --format '{{json .State.Health.Status}}'|jq`
-#         if [jq](https://stedolan.github.io/jq/) is installed
+#Get Health check status with `docker container inspect --format '{{.State.Health.Status}}' <ID>"
 
 docker container run --publish 8089:8000 --rm --detach --name myAPIserver dockerfornovices/api-server:$VERSION
 
@@ -36,6 +34,7 @@ read x
 
 curl http://0.0.0.0:8089/people
 
+# Now what happens we don't publish ports?
 read x
 
 docker container stop myAPIserver
@@ -48,8 +47,7 @@ docker container ls -a
 
 curl http://0.0.0.0:8089/people
 
-curl http://0.0.0.0:8000/people
-
+# No published port means we can't speak to network services inside the container
 read x
 
 docker container stop myAPIserver

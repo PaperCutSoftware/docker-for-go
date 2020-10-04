@@ -10,6 +10,4 @@ Run with `docker container run -p 8089:8000 --rm -d api-server:latest`
 
 Test with `curl -v http://0.0.0.0:9089/people`
 
-Get Health check status with `docker container inspect --format '{{.State.Health.Status}}' <ID>"`,
-or `docker container inspect --format '{{json .State.Health.Status}}'|jq`
-if [jq](https://stedolan.github.io/jq/) is installed
+Get Health check status with `docker container inspect --format '{{.State.Health.Status}}' <ID>"`

@@ -78,6 +78,6 @@ docker container logs myAlpine
 
 read x
 
-# let's tail the logs
+# let's tail the logs (Ctrl-C to exit)
 
 docker container logs --follow myAlpine

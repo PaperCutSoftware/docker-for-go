@@ -1,5 +1,5 @@
 .vscode
-04-bind-mount/go.sum
-04-bind-mount/go.mod
-04-bind-mount/main*
+go.sum
+go.mod
+main*
 
