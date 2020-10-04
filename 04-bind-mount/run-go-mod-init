@@ -1,3 +1,3 @@
 #!/bin/bash -v
 
-go mod init github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
+go mod init github.com/dockerfornovices/DockerSimpleDemo/blob/master/FileSetA/main.go

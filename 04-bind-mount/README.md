@@ -2,7 +2,7 @@
 
 Build a Go API server in a Docker container
 
-Go API code is from https://github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
+Go API code adapted is from https://github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
 
 From the this directory build with `docker image build -t api-server .`
 

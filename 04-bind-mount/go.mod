@@ -1,4 +1,4 @@
-module github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
+module github.com/dockerfornovices/DockerSimpleDemo/blob/master/FileSetA/main.go
 
 go 1.14
 

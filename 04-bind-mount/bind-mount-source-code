@@ -1,5 +1,14 @@
-#!/bin/bash -v
+#!/bin/bash
+
+[[ -f main.go ]]  || wget  https://raw.githubusercontent.com/dockerfornovices/DockerSimpleDemo/master/FileSetA/main.go
+
+for i in go.sum go.mod main; do
+        [[ -f "$i" ]] && rm -f "$i"
+done
+
+set -v
 
 docker container run --rm -it \
-        --workdir="/development" \
-        --mount type=bind,source=$PWD,target=/development --name myGoDev golang:1.14
+        --workdir="/development" --user=$(id -u):$(id -g) -e HOME="/tmp/$(id -un)" \
+        --mount type=bind,source=$PWD,target=/development \
+        --name myGoDev golang:1.14

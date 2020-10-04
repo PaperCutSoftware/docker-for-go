@@ -1,12 +1,30 @@
 #!/bin/dash
-VERSION=${1:-1.14}
 
+VERSION=${1:-1.14}
 docker container rm -f myAPIserver
 
-docker image rm -f dockerfornovices/api-server:$VERSION > /dev/null
 clear
 echo \$VERSION is  $VERSION
 set -v
+
+
+# Simple example of a Docker server application
+
+# Test a Go API server running in a Docker container
+
+# Go API code is adapted from https://github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
+
+# The image is already build for use. See https://hub.docker.com/repository/docker/dockerfornovices/api-server
+
+# Run with
+
+# `docker container run --publish 8089:8000 --rm --detach --name myAPIserver dockerfornovices/api-server:$VERSION`
+
+# Test with `curl -v http://0.0.0.0:9089/people`
+
+#Get Health check status with `docker container inspect --format '{{.State.Health.Status}}' <ID>"`,
+# or `docker container inspect --format '{{json .State.Health.Status}}'|jq`
+#         if [jq](https://stedolan.github.io/jq/) is installed
 
 docker container run --publish 8089:8000 --rm --detach --name myAPIserver dockerfornovices/api-server:$VERSION
 
