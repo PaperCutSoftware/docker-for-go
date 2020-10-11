@@ -1,3 +1,0 @@
-#!/bin/bash -v
-
-go build main.go

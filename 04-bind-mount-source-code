@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ -f main.go ]]  || wget  https://raw.githubusercontent.com/dockerfornovices/DockerSimpleDemo/master/FileSetA/main.go
+cd work-dir
 
 for i in go.sum go.mod main; do
         [[ -f "$i" ]] && rm -f "$i"
@@ -13,3 +13,4 @@ docker container run --rm -it \
         --mount type=bind,source=$PWD,target=/development \
         --publish 9089:8000 \
         --name myGoDev golang:1.14
+

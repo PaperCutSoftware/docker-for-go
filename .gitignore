@@ -1,4 +1,5 @@
 .vscode
 go.sum
 go.mod
-main*
+main
+.config

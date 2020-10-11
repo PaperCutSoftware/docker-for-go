@@ -1,18 +1,13 @@
-# A basic introduction to Docker for Go develoeprs
+# Simple example of a Docker server application
 
-I gave a talk at Melbourne Go meetup in April 2020 and used these
-demo scripts. The slides are at
+Build a Go API server in a Docker container
 
-https://docs.google.com/presentation/d/e/2PACX-1vR7TkrRr92YnDQKX0H3wmfZ4uCYNCMZf1JqlBHMTegQmOKJJc3d3dCS4kdJKbVrH-RiZu6s_Tnktr2s/pub?start=false&loop=false
+Go API code adapted is from https://github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
 
-Talk Agenda
+From the this directory build with `docker image build -t api-server .`
 
-This talk assumes no knowledge of Docker and only basic Go knowledge
+Run with `docker container run -p 8089:8000 --rm -d api-server:latest`
 
-1. What is Docker and why would I use it for development?
-2. Using a Pre-Build image to edit and build Go code
-3. Extending images with additional tools
-4. Use multi-stage builds for testing
-5. Using Docker-Compose for client and server testing
+Test with `curl -v http://0.0.0.0:9089/people`
 
-This is a beginner level talk. This talk will introduce Docker and why it's useful for developers in their daily life.
+Get Health check status with `docker container inspect --format '{{.State.Health.Status}}' <ID>"`

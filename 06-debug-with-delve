@@ -1,7 +1,11 @@
 #!/bin/bash -v
 
+cd work-dir
+
 docker container run --rm -it \
-    --workdir="/development" \
+    --workdir="/development" --user=$(id -u):$(id -g) -e HOME="/tmp/$(id -un)" \
     --mount type=bind,source=$PWD,target=/development \
     --mount type=volume,source=go-deps-my-project,target=/go \
-    --name myGoDev golang:1.14
+    --publish 9089:8000 \
+    --name myGoDev go-with-delve:1.14
+

@@ -1,0 +1,15 @@
+#/bin/bash
+
+[[ -f main.go ]]  || wget  https://raw.githubusercontent.com/dockerfornovices/DockerSimpleDemo/master/FileSetA/main.go
+
+for i in go.sum go.mod main; do
+        [[ -f "$i" ]] && rm -f "$i"
+done
+
+clear
+set -v
+
+# Add delve debugger to standard go image
+
+docker image build -f Dockerfile -t go-with-delve:1.14 .
+

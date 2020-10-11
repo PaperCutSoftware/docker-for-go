@@ -1,3 +1,0 @@
-#!/bin/bash -v
-
-go mod init github.com/dockerfornovices/DockerSimpleDemo/blob/master/FileSetA/main.go
