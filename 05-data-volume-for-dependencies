@@ -1,0 +1,33 @@
+#!/bin/bash
+
+
+docker volume rm go-deps-my-project
+
+cd work-dir
+
+[[ -f main ]] && rm main
+
+clear
+set -v
+
+# Mount our dev env and build some code
+
+docker container run --rm -it \
+    --workdir="/development" --user=$(id -u):$(id -g) -e HOME="/tmp/$(id -un)" \
+    --mount type=bind,source=$PWD,target=/development \
+    --mount type=volume,source=go-deps-my-project,target=/go \
+    --publish 9089:8000 \
+    --name myGoDev golang:1.14
+
+# Now remove the build binary and build again without get
+
+[ -f main ] && rm main
+
+read x
+
+docker container run --rm -it \
+    --workdir="/development" --user=$(id -u):$(id -g) -e HOME="/tmp/$(id -un)" \
+    --mount type=bind,source=$PWD,target=/development \
+    --mount type=volume,source=go-deps-my-project,target=/go \
+    --publish 9089:8000 \
+    --name myGoDev golang:1.14

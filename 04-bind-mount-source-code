@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd work-dir
+
+for i in go.sum go.mod main; do
+        [[ -f "$i" ]] && rm -f "$i"
+done
+
+set -v
+
+docker container run --rm -it \
+        --workdir="/development" --user=$(id -u):$(id -g) -e HOME="/tmp/$(id -un)" \
+        --mount type=bind,source=$PWD,target=/development \
+        --publish 9089:8000 \
+        --name myGoDev golang:1.14
+

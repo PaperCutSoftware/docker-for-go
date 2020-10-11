@@ -1,0 +1,26 @@
+#/bin/bash
+
+
+GO_VERISION=1.14
+docker image rm -f go-wth-delve:$GO_VERSION
+
+cd work-dir
+
+[[ -f main ]] && rm main
+
+clear
+
+echo
+echo Add delve debugger to standard go image. This is the dockerfile
+echo
+echo -----------------------------------------------
+cat Dockerfile
+echo -----------------------------------------------
+
+set -v
+read x
+
+GO_VERSION=1.14
+
+docker image build --build-arg GO_VERSION=$GO_VERSION -f Dockerfile -t go-with-delve:$GO_VERSION .
+

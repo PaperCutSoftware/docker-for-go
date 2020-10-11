@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Use a pre build image  https://hub.docker.com/repository/docker/dockerfornovices/sqlite
+
+docker volume rm db-demo
+
+clear
+
+set -v
+
+# The pre build image runs the SQLite db file utility to write to a database on /data
+
+docker image inspect --format='{{.Config.Entrypoint}}' dockerfornovices/sqlite:0.1
+
+
+read x
+
+docker container run --rm -it \
+    dockerfornovices/sqlite:0.1 $'create table t1  (c1 varchar(20));'
+
+read x
+
+docker container run --rm -it \
+    dockerfornovices/sqlite:0.1 $'insert into t1 values (\'Hello Melbourne Go Meetup\');'
+
+# Oops
+
+read x
+
+
+docker container run --rm -it --mount type=volume,source=db-demo,target=/data \
+    dockerfornovices/sqlite:0.1 $'create table t1  (c1 varchar(20));'
+
+docker container run --rm -it --mount type=volume,source=db-demo,target=/data \
+    dockerfornovices/sqlite:0.1 $'insert into t1 values (\'Hello Melbourne Go Meetup\');'
+
+docker container run --rm -it --mount type=volume,source=db-demo,target=/data \
+    dockerfornovices/sqlite:0.1 $'select * from t1;'
+
+# We now have a volume that exists beyond the container -- use the inspect command to see more details
+# about the Docker managed persistant storage volume.
+read x
+
+docker volume inspect db-demo
