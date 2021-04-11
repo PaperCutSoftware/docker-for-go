@@ -1,10 +1,16 @@
-# Simple example of a Docker server application
+# Docker for Go Developers
 
-Build a Go API server in a Docker container
+A talk given at Gopher Melbourne (AU) in April 2020
 
-Go API code adapted is from https://github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
+[![Slides](DockerForGoDev.png)](https://docs.google.com/presentation/d/e/2PACX-1vR7TkrRr92YnDQKX0H3wmfZ4uCYNCMZf1JqlBHMTegQmOKJJc3d3dCS4kdJKbVrH-RiZu6s_Tnktr2s/pub?start=false&loop=false&delayms=3000)
 
-From the this directory build with `docker image build -t api-server .`
+# Simple example of building a Go server application in a Docker container
+
+This talk uses the following for illustrative purposes.
+
+Go API code adapted from https://github.com/HakaseLabs/source-blog/blob/master/rest-api/main.go
+
+From this directory build with `docker image build -t api-server .`
 
 Run with `docker container run -p 8089:8000 --rm -d api-server:latest`
 
